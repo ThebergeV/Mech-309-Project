@@ -2,8 +2,8 @@
 import numpy as np
 import math
 
-minA = -1
-maxA = -1
+minCurve = -1
+maxCurve = -1
 a = 0
 
 #for a parameter a, runs the code of question 3 and 4 to find the length of the curve
@@ -12,13 +12,13 @@ while error >= 0.00001:
     errorMin = 0
     errorMax = 0
     #Replaces the value of a if it give the minimum length of the curve or the maximum
-    if (minA < 0 or l < minA):
-        errorMin = abs(minA - l)
-        minA = l
+    if (minCurve < 0 or l < minCurve):
+        errorMin = abs(minCurve - l)
+        minCurve = l
         aMin = a
-    if (maxA < 0 or l > maxA):
-        errorMax = abs(maxA - l)
-        maxA = l
+    if (maxCurve < 0 or l > maxCurve):
+        errorMax = abs(maxCurve - l)
+        maxCurve = l
         aMax = a
     error = max(errorMin, errorMax)
     a = a + error
