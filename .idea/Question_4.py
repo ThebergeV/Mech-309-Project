@@ -38,12 +38,12 @@ def findLength(a, h):
 
         #Calculates the length between the selected point and the other points
         for otherpoints in Curve:
-            if otherpoints != point:
+            if otherpoints.all != point.all:
                 dist = distance(point, otherpoints)
                 #If there are slots in the array that have not been used yet, replaces them with the current points and distances
                 if min(distArray[i][2], distArray[i][4]) == 0:
                     indOfMin = findIndex(distArray[i], min(distArray[i][2], distArray[i][4]))
-
+                    test = Curve.index(otherpoints.all)
                     distArray[i][indOfMin - 1] = Curve.index(otherpoints)
                     distArray[i][indOfMin] = dist
 

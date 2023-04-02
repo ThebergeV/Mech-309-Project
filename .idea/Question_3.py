@@ -104,7 +104,8 @@ def trace(a, h):
             a[i] = a[i] + dirn[i]
         #find intersect point
         a = Newton(a)
-        intersect.append(np.copy(a))
+        intersect.append(a)
+    print(intersect)
     return intersect
 trace(a0, 1)
 
