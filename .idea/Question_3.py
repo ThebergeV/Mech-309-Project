@@ -105,7 +105,7 @@ def trace(a, h):
         #find intersect point
         a = Newton(a)
         intersect.append(np.copy(a))
-    print(intersect)
+    return intersect
 trace(a0, 1)
 
 #loop until reaching starting point

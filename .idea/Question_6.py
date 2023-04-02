@@ -4,9 +4,9 @@ from Question_4 import *
 
 minCurve = -1
 maxCurve = -1
-a = 0
+a = [0, 0, 0]
 error = 9999
-h = 0
+h = [0, 0, 0]
 
 #for a parameter a, runs the code of question 3 and 4 to find the length of the curve
 while error >= 0.00001:
