@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from Question_4 import *
-
+#Example for gitHub
 minCurve = -1
 maxCurve = -1
 a = [1, 1, 1]
