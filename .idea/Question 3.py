@@ -83,31 +83,35 @@ def Newton(a):
         norm = np.linalg.norm(h)
         
     return a
-    
+
 #initial point
 a0 = Newton([1,1,1])
 intersect = []
 intersect.append(np.copy(a0)) #list of numpy arrays
+
 #tracing
 def trace(a, h):
+    #initial 2nd point
+    a1 = Newton(np.add(a, [h/3, h/3, h/3]))
+    intersect.append(a1)
+    a = a1
     for n in range(20):
-        x = a[0]
-        y = a[1]
-        z = a[2]
         #trace direction
-        dirn = [(4*x**3)*(3*x**2), (np.cos(y))*(np.e**y), (4*z**3)*(3*(z-4)**2)]
+        dirn = (np.add(a, -intersect[n]))/h
         norm = np.linalg.norm(dirn)
         dirn = dirn/norm
         #move h in trace direction
         dirn = dirn*h
-        for i in range(3):
-            a[i] = a[i] + dirn[i]
-        #find intersect point
+        a = np.add(a, dirn)
         a = Newton(a)
         intersect.append(np.copy(a))
-    print(intersect)
-trace(a0, 1)
+
+        #stopping condition
+        
+    return intersect
+
+#answer
+curve = trace(a0, 0.25)
+print(curve)
 
 #loop until reaching starting point
-
-#current problem: tracing loop converges, why???
