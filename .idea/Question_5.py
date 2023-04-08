@@ -39,7 +39,7 @@ def Newton(a, b):
 
 #initial point
 b = 0
-a0 = Newton([0 , 5, b], b)
+a0 = Newton([0 , 5, b], b) #Use b as initial guess for z-coordinate for Newton's method
                             
 #tracing
 def trace(a, h, b):
