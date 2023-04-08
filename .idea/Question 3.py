@@ -16,50 +16,11 @@ procedure able to generate a 3D plot showing the
 intersection curve. In the same plot, showing
 the chosen surface functions is welcome but not
 mandatory.
-
-need to parametrize equations
-Newton's method to solve?
 '''
 
 from mpl_toolkits.mplot3d import axes3d
 import matplotlib.pyplot as plt
 import numpy as np
-
-def plot_implicit(fn, bbox=(-10,10)):
-    ''' create a plot of an implicit function
-    fn  ...implicit function (plot where fn==0)
-    bbox ..the x,y,and z limits of plotted interval'''
-    xmin, xmax, ymin, ymax, zmin, zmax = bbox*3
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    A = np.linspace(xmin, xmax, 100) # resolution of the contour
-    B = np.linspace(xmin, xmax, 15) # number of slices
-    A1,A2 = np.meshgrid(A,A) # grid on which the contour is plotted
-
-    for z in B: # plot contours in the XY plane
-        X,Y = A1,A2
-        Z = fn(X,Y,z)
-        cset = ax.contour(X, Y, Z+z, [z], zdir='z')
-        # [z] defines the only level to plot for this contour for this value of z
-
-    for y in B: # plot contours in the XZ plane
-        X,Z = A1,A2
-        Y = fn(X,y,Z)
-        cset = ax.contour(X, Y+y, Z, [y], zdir='y')
-
-    for x in B: # plot contours in the YZ plane
-        Y,Z = A1,A2
-        X = fn(x,Y,Z)
-        cset = ax.contour(X+x, Y, Z, [x], zdir='x')
-
-    # must set plot limits because the contour will likely extend
-    # way beyond the displayed level.  Otherwise matplotlib extends the plot limits
-    # to encompass all values in the contour.
-    ax.set_zlim3d(zmin,zmax)
-    ax.set_xlim3d(xmin,xmax)
-    ax.set_ylim3d(ymin,ymax)
-
-    plt.show()
     
 def S1(x,y,z): #implicit function = 0
     return x**4 + np.sin(y) + z**4
@@ -93,9 +54,10 @@ intersect.append(np.copy(a0)) #list of numpy arrays
 def trace(a, h):
     #initial 2nd point
     a1 = Newton(np.add(a, [h/3, h/3, h/3]))
-    intersect.append(a1)
-    a = a1
-    for n in range(20):
+    intersect.append(np.copy(a1))
+    a = np.copy(a1)
+    n = 0
+    while(n < 10 or (np.linalg.norm(np.add(a1,-intersect[n])) >= h/2) and (np.linalg.norm(np.add(a0,-intersect[n])) >= h/2)):
         #trace direction
         dirn = (np.add(a, -intersect[n]))/h
         norm = np.linalg.norm(dirn)
@@ -105,13 +67,32 @@ def trace(a, h):
         a = np.add(a, dirn)
         a = Newton(a)
         intersect.append(np.copy(a))
-
-        #stopping condition
-        
+        n = n + 1 
+        if n > 2000:
+            print("diverged")
+            break
+ 
     return intersect
 
-#answer
-curve = trace(a0, 0.25)
-print(curve)
+#list of points on interesction curve
+points = trace(a0, 0.01)
 
-#loop until reaching starting point
+def plotCurve(points, bbox=(-10,10)):
+    xmin, xmax, ymin, ymax, zmin, zmax = bbox*3
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    A = np.linspace(xmin, xmax, 100) # resolution of the contour
+    B = np.linspace(xmin, xmax, 15) # number of slices
+    A1,A2 = np.meshgrid(A,A) # grid on which the contour is plotted
+
+    for i in range(len(points)):
+        end = points[i]
+        if i == 0:
+            start = points[i]
+        else:
+            ax.plot([start[0], end[0]], [start[1], end[1]], zs=[start[2], end[2]])
+            start = end
+
+    plt.show()
+
+plotCurve(points)
