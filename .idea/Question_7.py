@@ -1,4 +1,4 @@
-from Question_5 import *
+from Question_5 import Newton
 import numpy as np
 
 
