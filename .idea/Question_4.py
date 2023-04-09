@@ -6,7 +6,7 @@
 
 import numpy as np
 import math
-from Question_3 import *
+from Question_5 import *
 
 #function measuring the distance between 2 points
 def distance(point1, point2):
@@ -25,8 +25,8 @@ def findIndex(array, value):
                 return i
         i = i+1
 
-def findLength(a, h):
-    l0 = findLengthMethod(a, h)
+def findLength(a, h, b):
+    l0 = findLengthMethod(a, h, b)
     error0 = 0.01
     error = error0
     h0 = h
@@ -40,8 +40,8 @@ def findLength(a, h):
         print("length: " + str(l1))
     return l1
 
-def findLengthMethod(a, h):
-    Curve = trace(a, h)
+def findLengthMethod(a, h, b):
+    Curve = trace(a, h, b)
     curve2 = np.empty((1, 3))
     j = 0
     for points in Curve:
@@ -64,17 +64,9 @@ def findLengthMethod(a, h):
         distArray.resize((i+1, 5))
 
 
-        var0 = i - 5
-        var1 = i + 5
-        maxIndex = -1
-        for something in curve2:
-            maxIndex += 1
-        lookIn = [i-5, i-4, i-3, i-2, i-1, i, i+1, i+2, i+3, i+4, i+5]
+
         #Calculates the length between the selected point and the other points
-        for z in lookIn:
-            if z >= maxIndex:
-                z = z- maxIndex
-            otherpoints = curve2[z]
+        for otherpoints in curve2:
             if otherpoints[0] != point[0] or otherpoints[1] != point[1] or otherpoints[2] != point[2]:
                 dist = distance(point, otherpoints)
                 #If there are slots in the array that have not been used yet, replaces them with the current points and distances
