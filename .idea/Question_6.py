@@ -32,7 +32,7 @@ print(completeDomain)
 #for a parameter b, runs the code of question 3 and 4 to find the length of the curve
 numb =0
 minCurve = 9999999999999999999999999
-maxCurve = 9999999999999999999999999
+maxCurve = 0
 for i in completeDomain:
     if numb != 0:
         l = findLength(a, h, i)
