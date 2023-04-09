@@ -21,7 +21,7 @@ mandatory.
 from mpl_toolkits.mplot3d import axes3d
 import matplotlib.pyplot as plt
 import numpy as np
-
+    
 def S1(x,y,z): #implicit function = 0
     return x**4 + np.sin(y) + z**4
 
@@ -42,7 +42,7 @@ def Newton(a):
         h = np.dot(inv, [-S1(a[0], a[1], a[2]), -S2(a[0], a[1], a[2])])
         a = a + h
         norm = np.linalg.norm(h)
-
+        
     return a
 
 #initial point
@@ -54,10 +54,10 @@ intersect.append(np.copy(a0)) #list of numpy arrays
 def trace(a, h):
     #initial 2nd point
     a1 = Newton(np.add(a, [h/3, h/3, h/3]))
-    intersect.append(a1)
-    a = a1
+    intersect.append(np.copy(a1))
+    a = np.copy(a1)
     n = 0
-    while(np.linalg.norm(np.add(a,-intersect[n])) >= h/16):
+    while(n < 10 or (np.linalg.norm(np.add(a1,-intersect[n])) >= h/2) and (np.linalg.norm(np.add(a0,-intersect[n])) >= h/2)):
         #trace direction
         dirn = (np.add(a, -intersect[n]))/h
         norm = np.linalg.norm(dirn)
@@ -67,11 +67,11 @@ def trace(a, h):
         a = np.add(a, dirn)
         a = Newton(a)
         intersect.append(np.copy(a))
-        n = n + 1
+        n = n + 1 
         if n > 2000:
             print("diverged")
             break
-
+ 
     return intersect
 
 #list of points on interesction curve
