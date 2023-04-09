@@ -44,5 +44,8 @@ for i in completeDomain:
             maxCurve = l
             bMax = i
     numb +=1
-    print("The value of b to get minimum is:" + str(bMin))
-    print("The value of b to get maximum is: " +str(bMax))
+    try:
+        print("The value of b to get minimum is:" + str(bMin))
+        print("The value of b to get maximum is: " +str(bMax))
+    except:
+        print("No critical values for now")
