@@ -56,7 +56,9 @@ def findLengthMethod(a, h, b):
     #distArray[3] = index of the other one of the 2 closest points to that point
     #distArray[2] = distance from target point to closest point 2
     distArray = np.empty((0, 5))
-
+    pointsAdded = []
+    length = 0
+    loop = "open"
     #Creates and fills an array of array with the distance information
     i = 0
     for point in curve2:
@@ -82,28 +84,25 @@ def findLengthMethod(a, h, b):
                     distArray[i][indOfMax - 1] = z
                     distArray[i][indOfMax] = dist
             z += 1
-        i += 1
 
-    #Calculates total length of curve
-    pointsAdded = []
-    length = 0
-    loop = "open"
-    for point in distArray:
+        #Calculates total length of curve
         if loop != "closed":
             #Adds every point in the array to the array pointsAdded once their distance from other points have been added to avoid counting them twice
-            pointsAdded.append(point[0])
+            pointsAdded.append(distArray[i][0])
             #for each point, if one of their closest 2 points is not in the pointsAdded array, adds their distance to the lenght total
-            if point[1] not in pointsAdded:
-                length = length + point[2]
-            elif point[3]  not in pointsAdded:
-                length = length + point[4]
+            if distArray[i][1] not in pointsAdded:
+                length = length + distArray[i][2]
+            elif distArray[i][3]  not in pointsAdded:
+                length = length + distArray[i][4]
             #If the 2 closest points are in the pointsAdded array, looks to see if one of the 2 closest points is the starting point (could be a loop curve)
             #If it is a loop, adds the distance to close the loop
-            elif point[1] == pointsAdded[0]:
-                length = length + point[2]
+            elif distArray[i][1] == pointsAdded[0]:
+                length = length + distArray[i][2]
                 loop = "closed"
-            elif point[3] == pointsAdded[0]:
-                length = length + point[4]
+            elif distArray[i][3] == pointsAdded[0]:
+                length = length + distArray[i][4]
                 loop = "closed"
+        i += 1
+
 
     return length
