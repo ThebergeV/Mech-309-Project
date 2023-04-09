@@ -9,9 +9,7 @@ from Question_7 import *
 
 h = 1
 domain = findDomain(-200, 200, h)
-#Example for gitHub
-minCurve = -1
-maxCurve = -1
+
 a = [1, 1, 1]
 
 
@@ -37,15 +35,16 @@ for i in completeDomain:
     if numb != 0:
         l = findLength(a, h, i)
         #Replaces the value of a if it give the minimum length of the curve or the maximum
-        if (minCurve == -1 or l < minCurve):
+        if (l < minCurve):
             minCurve = l
             bMin = i
-        if (maxCurve == -1 or l > maxCurve):
+        if (l > maxCurve):
             maxCurve = l
             bMax = i
     numb +=1
     try:
-        print("The value of b to get minimum is:" + str(bMin))
+        print(str(i))
+        print("The value of b to get minimum is: " + str(bMin))
         print("The value of b to get maximum is: " +str(bMax))
     except:
         print("No critical values for now")

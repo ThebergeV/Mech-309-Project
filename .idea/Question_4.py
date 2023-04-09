@@ -27,10 +27,9 @@ def findIndex(array, value):
 
 def findLength(a, h, b):
     l0 = findLengthMethod(a, h, b)
-    error0 = 10
-    error = error0
+    error = 10
     h0 = h
-    while error>= 0.1:
+    while error>= 0.5:
         l1 = findLengthMethod(a, h0, b)
         error = abs(l1 - l0)
         l0 = l1
