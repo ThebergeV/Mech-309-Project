@@ -62,45 +62,44 @@ def findLengthMethod(a, h, b):
     #Creates and fills an array of array with the distance information
     i = 0
     for point in curve2:
-        distArray = np.append(distArray, [i, 0, 0, 0, 0])
-        distArray.resize((i+1, 5))
-
-
+        distmin1 = 99999
+        minInd1 = -1
+        distmin2 = 99999
+        minInd2 = -1
         z = 0
         #Calculates the length between the selected point and the other points
         for otherpoints in curve2:
             if otherpoints[0] != point[0] or otherpoints[1] != point[1] or otherpoints[2] != point[2]:
                 dist = distance(point, otherpoints)
-                #If there are slots in the array that have not been used yet, replaces them with the current points and distances
-                if min(distArray[i][2], distArray[i][4]) == 0:
-                    indOfMin = findIndex(distArray[i], min(distArray[i][2], distArray[i][4]))
-                    distArray[i][indOfMin - 1] = z
-                    distArray[i][indOfMin] = dist
 
-                #If the current point is closer to the target point than the points stored in the array, replaces the furthest one
-                elif dist < max(distArray[i][2], distArray[i][4]):
-                    indOfMax = findIndex(distArray[i], max(distArray[i][2], distArray[i][4]))
+                #If the current point is closer to the target point than the current closest points replaces the furthest one
+                if dist < max(distmin1, distmin2):
 
-                    distArray[i][indOfMax - 1] = z
-                    distArray[i][indOfMax] = dist
+                    if(distmin1 >= distmin2):
+                        distmin1 = dist
+                        minInd1 = z
+
+                    else:
+                        distmin2 = dist
+                        minInd2 = z
             z += 1
 
         #Calculates total length of curve
         if loop != "closed":
             #Adds every point in the array to the array pointsAdded once their distance from other points have been added to avoid counting them twice
-            pointsAdded.append(distArray[i][0])
+            pointsAdded.append(i)
             #for each point, if one of their closest 2 points is not in the pointsAdded array, adds their distance to the lenght total
-            if distArray[i][1] not in pointsAdded:
-                length = length + distArray[i][2]
-            elif distArray[i][3]  not in pointsAdded:
-                length = length + distArray[i][4]
+            if minInd1 not in pointsAdded:
+                length = length + distmin1
+            elif minInd2  not in pointsAdded:
+                length = length + distmin2
             #If the 2 closest points are in the pointsAdded array, looks to see if one of the 2 closest points is the starting point (could be a loop curve)
             #If it is a loop, adds the distance to close the loop
-            elif distArray[i][1] == pointsAdded[0]:
-                length = length + distArray[i][2]
+            elif minInd1 == pointsAdded[0]:
+                length = length + distmin1
                 loop = "closed"
-            elif distArray[i][3] == pointsAdded[0]:
-                length = length + distArray[i][4]
+            elif minInd2 == pointsAdded[0]:
+                length = length + distmin2
                 loop = "closed"
         i += 1
 
