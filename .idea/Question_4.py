@@ -29,7 +29,7 @@ def findLength(a, h, b):
     l0 = findLengthMethod(a, h, b)
     error = 10
     h0 = h
-    while error>= 2:
+    while error>= 0.001:
         l1 = findLengthMethod(a, h0, b)
         error = abs(l1 - l0)
         l0 = l1

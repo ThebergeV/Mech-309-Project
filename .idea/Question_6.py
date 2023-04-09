@@ -26,7 +26,7 @@ while j < domainSize:
     while start <= stop:
         value = start
         completeDomain = np.append(completeDomain, [value])
-        start += 1
+        start += 0.001
     j += 1
 
 print(completeDomain)
