@@ -25,24 +25,22 @@ def findIndex(array, value):
                 return i
         i = i+1
 
-def findLength(a, h, d):
-    l0 = findLengthMethod(a, h, d)
+def findLength(a, h):
+    l0 = findLengthMethod(a, h)
     error0 = 0.01
     error = error0
     h0 = h
-    while error>= 0.001 and h0 >= 0.0:
-        h1 = h0 - error
-        l1 = findLengthMethod(a, h1, d)
+    while error>= 0.001:
+        l1 = findLengthMethod(a, h0)
         error = abs(l1 - l0)
-        h0 = h1
-        if error >= h0 or error == 0.0:
-            error = error0
+        l0 = l1
+        h0 = h0/2
         print(h0)
         print("error: " + str(error))
         print("length: " + str(l1))
     return l1
 
-def findLengthMethod(a, h, d):
+def findLengthMethod(a, h):
     Curve = trace(a, h)
     curve2 = np.empty((1, 3))
     j = 0
@@ -93,7 +91,6 @@ def findLengthMethod(a, h, d):
                     distArray[i][indOfMax] = dist
             z += 1
         i += 1
-    print(distArray)
 
     #Calculates total length of curve
     pointsAdded = []

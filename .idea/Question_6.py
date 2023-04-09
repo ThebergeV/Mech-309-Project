@@ -13,16 +13,13 @@ maxCurve = -1
 a = [1, 1, 1]
 error = 9999
 h = 1
-d = -99999999999999999
 
 
-def criticalPoints(a, h, d):
+def criticalPoints(a, h):
     touch = False
     zerosInARow = 0
     criticalPointMin1 = 99999999999999999999
     dCriticalMin1 = 0
-    criticalPointMin2 = 999999999999999999999
-    dCriticalMin2 = 0
     criticalPointMax = 0
     dCriticalMax = 0
     for i in range(d, 999999, 0.001):
@@ -41,12 +38,12 @@ def criticalPoints(a, h, d):
             zerosInARow += 1
             if zerosInARow >= 10:
                 return [dCriticalMin1, dCriticalMax, dCriticalMin2]
-    return [dCriticalMin1, dCriticalMax, dCriticalMin2]
+    return [dCriticalMin1, dCriticalMax]
 
 
 
 for i in range(d, 999999999999999999999999, 1) :
-    l = findLength(a, h, d)
+    l = findLength(a, h)
     if l > 0:
-        criticalPoints(a, h, d-0.1)
+        criticalPoints(a, h)
         skip
