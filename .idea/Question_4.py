@@ -27,18 +27,15 @@ def findIndex(array, value):
 
 def findLength(a, h, b):
     l0 = findLengthMethod(a, h, b)
-    error0 = 0.01
+    error0 = 10
     error = error0
     h0 = h
-    while error>= 0.001:
+    while error>= 0.1:
         l1 = findLengthMethod(a, h0, b)
         error = abs(l1 - l0)
         l0 = l1
         h0 = h0/2
-        print(h0)
-        print("error: " + str(error))
-        print("length: " + str(l1))
-    return l1
+    return l0
 
 def findLengthMethod(a, h, b):
     Curve = trace(a, h, b)

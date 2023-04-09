@@ -32,12 +32,17 @@ while j < domainSize:
 
 print(completeDomain)
 #for a parameter b, runs the code of question 3 and 4 to find the length of the curve
+numb =0
 for i in completeDomain:
-    l = findLength(a, h, i)
-    #Replaces the value of a if it give the minimum length of the curve or the maximum
-    if (minCurve == -1 or l < minCurve):
-        minCurve = l
-        bMin = i
-    if (maxCurve == -1 or l > maxCurve):
-        maxCurve = l
-        bMax = i
+    if numb != 0:
+        l = findLength(a, h, i)
+        #Replaces the value of a if it give the minimum length of the curve or the maximum
+        if (minCurve == -1 or l < minCurve):
+            minCurve = l
+            bMin = i
+        if (maxCurve == -1 or l > maxCurve):
+            maxCurve = l
+            bMax = i
+    numb +=1
+    print("The value of b to get minimum is:" + str(bMin))
+    print("The value of b to get maximum is: " +str(bMax))
