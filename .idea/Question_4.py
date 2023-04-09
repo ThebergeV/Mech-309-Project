@@ -31,7 +31,7 @@ def findLength(a, h, b):
     error = error0
     h0 = h
     while error>= 0.001:
-        l1 = findLengthMethod(a, h0)
+        l1 = findLengthMethod(a, h0, b)
         error = abs(l1 - l0)
         l0 = l1
         h0 = h0/2
@@ -64,7 +64,7 @@ def findLengthMethod(a, h, b):
         distArray.resize((i+1, 5))
 
 
-
+        z = 0
         #Calculates the length between the selected point and the other points
         for otherpoints in curve2:
             if otherpoints[0] != point[0] or otherpoints[1] != point[1] or otherpoints[2] != point[2]:
@@ -72,15 +72,16 @@ def findLengthMethod(a, h, b):
                 #If there are slots in the array that have not been used yet, replaces them with the current points and distances
                 if min(distArray[i][2], distArray[i][4]) == 0:
                     indOfMin = findIndex(distArray[i], min(distArray[i][2], distArray[i][4]))
-                    distArray[i][indOfMin - 1] = curve2.__index__(curve2, otherpoints)
+                    distArray[i][indOfMin - 1] = z
                     distArray[i][indOfMin] = dist
 
                 #If the current point is closer to the target point than the points stored in the array, replaces the furthest one
                 elif dist < max(distArray[i][2], distArray[i][4]):
                     indOfMax = findIndex(distArray[i], max(distArray[i][2], distArray[i][4]))
 
-                    distArray[i][indOfMax - 1] = curve2.__index__(curve2, otherpoints)
+                    distArray[i][indOfMax - 1] = z
                     distArray[i][indOfMax] = dist
+            z += 1
         i += 1
 
     #Calculates total length of curve
