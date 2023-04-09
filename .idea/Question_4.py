@@ -1,3 +1,9 @@
+"""
+
+@author: Vincent
+"""
+
+
 import numpy as np
 import math
 from Question_3 import *
@@ -19,8 +25,31 @@ def findIndex(array, value):
                 return i
         i = i+1
 
-def findLength(a, h):
+def findLength(a, h, d):
+    l0 = findLengthMethod(a, h, d)
+    error0 = 0.01
+    error = error0
+    h0 = h
+    while error>= 0.001 and h0 >= 0.0:
+        h1 = h0 - error
+        l1 = findLengthMethod(a, h1, d)
+        error = abs(l1 - l0)
+        h0 = h1
+        if error >= h0 or error == 0.0:
+            error = error0
+        print(h0)
+        print("error: " + str(error))
+        print("length: " + str(l1))
+    return l1
+
+def findLengthMethod(a, h, d):
     Curve = trace(a, h)
+    curve2 = np.empty((1, 3))
+    j = 0
+    for points in Curve:
+        curve2 = np.append([curve2], [points])
+        curve2.resize((j+2, 3))
+        j = j+1
 
     #creates an array that will store the information needed for this program.
     #distArray[0] = index of point in the curve array
@@ -32,28 +61,39 @@ def findLength(a, h):
 
     #Creates and fills an array of array with the distance information
     i = 0
-    for point in Curve:
+    for point in curve2:
         distArray = np.append(distArray, [i, 0, 0, 0, 0])
         distArray.resize((i+1, 5))
 
+
+        var0 = i - 5
+        var1 = i + 5
+        maxIndex = -1
+        for something in curve2:
+            maxIndex += 1
+        lookIn = [i-5, i-4, i-3, i-2, i-1, i, i+1, i+2, i+3, i+4, i+5]
         #Calculates the length between the selected point and the other points
-        for otherpoints in Curve:
-            if otherpoints.all != point.all:
+        for z in lookIn:
+            if z >= maxIndex:
+                z = z- maxIndex
+            otherpoints = curve2[z]
+            if otherpoints[0] != point[0] or otherpoints[1] != point[1] or otherpoints[2] != point[2]:
                 dist = distance(point, otherpoints)
                 #If there are slots in the array that have not been used yet, replaces them with the current points and distances
                 if min(distArray[i][2], distArray[i][4]) == 0:
                     indOfMin = findIndex(distArray[i], min(distArray[i][2], distArray[i][4]))
-                    test = Curve.index(otherpoints.all)
-                    distArray[i][indOfMin - 1] = Curve.index(otherpoints)
+                    distArray[i][indOfMin - 1] = z
                     distArray[i][indOfMin] = dist
 
                 #If the current point is closer to the target point than the points stored in the array, replaces the furthest one
                 elif dist < max(distArray[i][2], distArray[i][4]):
                     indOfMax = findIndex(distArray[i], max(distArray[i][2], distArray[i][4]))
 
-                    distArray[i][indOfMax - 1] = Curve.index(otherpoints)
+                    distArray[i][indOfMax - 1] = z
                     distArray[i][indOfMax] = dist
+            z += 1
         i += 1
+    print(distArray)
 
     #Calculates total length of curve
     pointsAdded = []
@@ -76,3 +116,5 @@ def findLength(a, h):
             elif point[3] == pointsAdded[0]:
                 length = length + point[4]
                 loop = "closed"
+
+    return length
