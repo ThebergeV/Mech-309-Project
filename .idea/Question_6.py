@@ -20,12 +20,13 @@ j = 0
 completeDomain = np.empty(1)
 while j < domainSize:
     start = domain[j][0]
-    stop = domain[j][1]
+    stop = domain[j].__len__()-1 + start
+    print(stop)
     value = 0
     while start <= stop:
         value = start
         completeDomain = np.append(completeDomain, [value])
-        start += 0.001
+        start += 1
     j += 1
 
 print(completeDomain)
