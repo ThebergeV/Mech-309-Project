@@ -24,24 +24,22 @@ def preciseDomain(step, bMin, bMax):
     return preciseDomain
 
 def critVal(inputDomain):
-    numb =0
     minCurve = 9999999999999999999999999
     maxCurve = 0
     l0 = 0
     for i in inputDomain:
         a = Newton([1, 1, 1], i)
-        if numb != 0:
+        if str(i) != "nan":
             l =0
             l = findLength(a, h0, i)
             l0 = l
             #Replaces the value of a if it give the minimum length of the curve or the maximum
-            if (l < minCurve):
+            if (l < minCurve and l != 0):
                 minCurve = l
                 bMin = i
             if (l > maxCurve):
                 maxCurve = l
                 bMax = i
-        numb +=1
         try:
             print("b: " + str(i))
             print("lenght: " + str(l))
