@@ -10,6 +10,46 @@ from Question_7 import *
 h = 1
 domain = findDomain(-200, 200, h)
 
+h0= 0.001
+def preciseDomain(step, bMin, bMax):
+    j = 0
+    preciseDomain = np.empty(0)
+    while j < 10:
+        preciseDomain = np.append(preciseDomain, [bMin + (step*j)])
+        preciseDomain = np.append(preciseDomain, [bMin - (step*j)])
+        preciseDomain = np.append(preciseDomain, [bMax + (step*j)])
+        preciseDomain = np.append(preciseDomain, [bMax - (step*j)])
+        j+=1
+    print(preciseDomain)
+    return preciseDomain
+
+def critVal(inputDomain):
+    numb =0
+    minCurve = 9999999999999999999999999
+    maxCurve = 0
+    l0 = 0
+    for i in inputDomain:
+        a = Newton([1, 1, 1], i)
+        if numb != 0:
+            l =0
+            l = findLength(a, h0, i)
+            l0 = l
+            #Replaces the value of a if it give the minimum length of the curve or the maximum
+            if (l < minCurve):
+                minCurve = l
+                bMin = i
+            if (l > maxCurve):
+                maxCurve = l
+                bMax = i
+        numb +=1
+        try:
+            print("b: " + str(i))
+            print("lenght: " + str(l))
+            print("The value of b to get minimum is: " + str(bMin))
+            print("The value of b to get maximum is: " +str(bMax))
+        except:
+            print("No critical values for now")
+    return [bMin, bMax]
 
 
 
@@ -27,59 +67,15 @@ while j < domainSize:
         start += 1
     j += 1
 
-#for a parameter b, runs the code of question 3 and 4 to find the length of the curve
-numb =0
-minCurve = 9999999999999999999999999
-maxCurve = 0
-l0 = 0
-for i in completeDomain:
-    a = Newton([1, 1, 1], i)
-    if numb != 0:
-        l =0
-        l = findLength(a, h, i)
-        l0 = l
-        #Replaces the value of a if it give the minimum length of the curve or the maximum
-        if (l < minCurve):
-            minCurve = l
-            bMin = i
-        if (l > maxCurve):
-            maxCurve = l
-            bMax = i
-    numb +=1
-    try:
-        print("b: " + str(i))
-        print("lenght: " + str(l))
-        print("The value of b to get minimum is: " + str(bMin))
-        print("The value of b to get maximum is: " +str(bMax))
-    except:
-        print("No critical values for now")
+print(completeDomain)
 
-j = 0
-preciseDomain = np.empty(1)
-while j < 1000:
+criticalValues1 = critVal(completeDomain)
 
-    preciseDomain = np.append(preciseDomain, [bMin + 0.001*j])
-    preciseDomain = np.append(preciseDomain, [bMin - 0.001*j])
-    preciseDomain = np.append(preciseDomain, [bMax + 0.001*j])
-    preciseDomain = np.append(preciseDomain, [bMax - 0.001*j])
+domain2 = preciseDomain(0.1, criticalValues1[0], criticalValues1[1])
+criticalValues2 = critVal(domain2)
 
-numb = 0
-for i in preciseDomain:
-    a = Newton([1, 1, 1], b)
-    if numb != 0:
-        l = findLength(a, h, i)
-        #Replaces the value of a if it give the minimum length of the curve or the maximum
-        if (l < minCurve):
-            minCurve = l
-            bMin = i
-        if (l > maxCurve):
-            maxCurve = l
-            bMax = i
-    numb +=1
-    try:
-        print("b: " + str(i))
-        print("lenght: " + str(l))
-        print("The value of b to get minimum is: " + str(bMin))
-        print("The value of b to get maximum is: " +str(bMax))
-    except:
-        print("No critical values for now")
+domain2 = preciseDomain(0.01, criticalValues2[0], criticalValues2[1])
+criticalValues3 = critVal(domain2)
+
+domain3 = preciseDomain(0.001, criticalValues1[0], criticalValues1[1])
+criticalValues3 = critVal(domain3)
