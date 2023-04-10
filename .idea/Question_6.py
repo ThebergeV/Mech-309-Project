@@ -34,7 +34,7 @@ def critVal(inputDomain):
             l = findLength(a, h0, i)
             l0 = l
             #Replaces the value of a if it give the minimum length of the curve or the maximum
-            if (l < minCurve and l != 0):
+            if (l < minCurve):
                 minCurve = l
                 bMin = i
             if (l > maxCurve):
