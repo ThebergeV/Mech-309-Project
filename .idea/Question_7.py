@@ -59,7 +59,7 @@ def findDomain(b_min, b_max, h):
             sub_domain = []
     
         
-        b = round(b + h, 1)
+        b = round(b + h, 3)
 
     
 
