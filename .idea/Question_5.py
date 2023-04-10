@@ -40,12 +40,14 @@ def Newton(a, b):
 
 b = 0
 a0 = Newton([1,1,1],b)
-intersect = []
-intersect.append(np.copy(a0)) #list of numpy arrays
 
  
 #tracing
 def trace(a, h, b):
+    #initial point
+    intersect = []
+    intersect.append(np.copy(a)) #list of numpy arrays
+    
     #initial 2nd point
     a1 = Newton(np.add(a, [h/3, h/3, h/3]), b)
     intersect.append(np.copy(a1))
