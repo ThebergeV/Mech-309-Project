@@ -10,7 +10,7 @@ from Question_7 import *
 h = 1
 domain = findDomain(-200, 200, h)
 
-a = [1, 1, 1]
+
 
 
 domainSize = domain.__len__()
@@ -33,6 +33,7 @@ minCurve = 9999999999999999999999999
 maxCurve = 0
 l0 = 0
 for i in completeDomain:
+    a = Newton([1, 1, 1], i)
     if numb != 0:
         l =0
         l = findLength(a, h, i)
@@ -64,6 +65,7 @@ while j < 1000:
 
 numb = 0
 for i in preciseDomain:
+    a = Newton([1, 1, 1], b)
     if numb != 0:
         l = findLength(a, h, i)
         #Replaces the value of a if it give the minimum length of the curve or the maximum
