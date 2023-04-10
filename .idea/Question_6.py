@@ -10,7 +10,7 @@ from Question_7 import *
 h = 1
 domain = findDomain(-200, 200, h)
 
-h0= 0.001
+h0= 0.01
 def preciseDomain(step, bMin, bMax):
     j = 0
     preciseDomain = np.empty(0)
@@ -75,7 +75,7 @@ domain2 = preciseDomain(0.1, criticalValues1[0], criticalValues1[1])
 criticalValues2 = critVal(domain2)
 
 domain2 = preciseDomain(0.01, criticalValues2[0], criticalValues2[1])
-criticalValues3 = critVal(domain2)
+criticalValues2 = critVal(domain2)
 
-domain3 = preciseDomain(0.001, criticalValues1[0], criticalValues1[1])
+domain3 = preciseDomain(0.001, criticalValues2[0], criticalValues2[1])
 criticalValues3 = critVal(domain3)
