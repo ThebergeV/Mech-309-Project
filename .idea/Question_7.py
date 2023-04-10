@@ -33,7 +33,7 @@ def findDomain(b_min, b_max, h):
 
     b = b_min
     i = 0
-
+    
     #init domain of definition
 
     domain = []  #List that holds the full set of b for which there is a solution
@@ -44,9 +44,8 @@ def findDomain(b_min, b_max, h):
 
     while b <= b_max:
     
-        a = Newton([0,5,b], b)
+        a = Newton([1,20,b], b)
 
-    
         if np.isnan(a[0]) == False:
             sub_domain.append(b)
     
@@ -57,12 +56,9 @@ def findDomain(b_min, b_max, h):
                 domain.append(sub_domain)
 
             sub_domain = []
-    
         
-        b = round(b + h, 1)
-
+        b = round(b + h, 3)
     
-
     if sub_domain != []:
         domain.append(sub_domain)
 
@@ -86,7 +82,7 @@ def findDomain(b_min, b_max, h):
 
     return domain #Outputs list with full set of solutions
 
-findDomain(-200,200,1)
+findDomain(-6,10,0.1)
 
 
 
