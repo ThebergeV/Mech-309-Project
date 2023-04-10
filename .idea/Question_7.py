@@ -1,3 +1,5 @@
+@author Jeremy
+
 from Question_5 import Newton
 import numpy as np
 
@@ -39,7 +41,7 @@ def findDomain(b_min, b_max, h):
 
     while b <= b_max:
     
-        a = Newton([0,5,b], b)
+        a = Newton([0,20,b], b)
 
     
         if np.isnan(a[0]) == False:
