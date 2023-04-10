@@ -6,20 +6,18 @@ from Question_5 import *
 from PIL import Image
 
 
-#list of points on interesction curve
-
-
+#Plots the intersection curve. Similar to the one in question 5, but modified slightly to create the animation
 def plotCurve2(points, bbox=(-10,10)):
 
     xmin, xmax, ymin, ymax, zmin, zmax = bbox*3
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-    ax.set_xlim(-5,5)
+    ax.set_xlim(-5,5) #set fixed axes to see the curve motion
     ax.set_ylim(0,10)
     ax.set_zlim(-5,10)
 
-    ax.set_xlabel("X axis")
+    ax.set_xlabel("X axis") #Axis labels
     ax.set_ylabel("Y axis")
     ax.set_zlabel("Z axis")
 
@@ -38,9 +36,7 @@ def plotCurve2(points, bbox=(-10,10)):
             start = end
         
 
-
-
-
+# creates animation of the intersection curve
 def createAnim(bmin, bmax, h):
 
     fullbVals = findDomain(bmin,bmax,h) #Returns list b values
@@ -54,14 +50,14 @@ def createAnim(bmin, bmax, h):
         #intersect.append(np.copy(a0)) #list of numpy arrays
         points = trace(a0, 0.01, b)
         plotCurve2(points)
-        plt.title("Intersection curve for b = " + str(b))
-        plt.savefig(f"{j}.png")
-        plt.close()
+        plt.title("Intersection curve for b = " + str(b)) #Plot title
+        plt.savefig(f"{j}.png") #Saves plot image
+        plt.close() #Closes plot
 
 
-    images = [Image.open(f"{n}.png") for n in range(n)] #Combines images of the plot into a .gif file to animate the plot
+    images = [Image.open(f"{n}.png") for n in range(n)] #Opens all of the images that were just created
 
-    images[0].save('animation.gif', save_all=True, append_images=images[1:], duration=100, loop=0)
+    images[0].save('animation.gif', save_all=True, append_images=images[1:], duration=100, loop=0) ##Combines images of the plot into a .gif file to animate the plot
 
 createAnim(-6,10,0.1)
 
