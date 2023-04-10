@@ -45,7 +45,7 @@ def createAnim(bmin, bmax, h):
 
     for j in range(n): #Saves n images of a plot of the intersectino curve with parameter b
         b = bvals[j]
-        points = trace([0,20,b], 0.01, b)
+        points = trace([1,1,1], 0.01, b)
         plotCurve2(points)
         plt.title("Intersection curve for b = " + str(b)) #Plot title
         plt.savefig(f"{j}.png") #Saves plot image
