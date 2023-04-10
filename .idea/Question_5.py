@@ -37,16 +37,13 @@ def Newton(a, b):
 
     
     return a
-
-b = 0
-a0 = Newton([1,1,1],b)
-
  
 #tracing
 def trace(a, h, b):
     #initial point
+    a0 = a
     intersect = []
-    intersect.append(np.copy(a)) #list of numpy arrays
+    intersect.append(np.copy(a0)) #list of numpy arrays
     
     #initial 2nd point
     a1 = Newton(np.add(a, [h/3, h/3, h/3]), b)
@@ -72,7 +69,6 @@ def trace(a, h, b):
 
 
 #list of points on interesction curve
-
 
 
 def plotCurve(points, bbox=(-10,10)):
